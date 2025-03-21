@@ -1,0 +1,119 @@
+'use client';
+
+import { useState } from "react";
+import { FaPencilAlt } from "react-icons/fa";
+
+interface Contact {
+  name: string;
+  address: string;
+  phone: string;
+}
+
+const ContactCard: React.FC = () => {
+  const [isChecked, setIsChecked] = useState<boolean>(true);
+  const [contact, setContact] = useState<Contact>({
+    name: "Dianne Russell",
+    address: "4140 Parker Rd. Allentown, New Mexico 31134",
+    phone: "+1 (555) 123-4567",
+  });
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [paymentMethod, setPaymentMethod] = useState<string>("Cash on Delivery");
+
+  const handleCheckboxChange = () => {
+    setIsChecked(!isChecked);
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContact({ ...contact, [e.target.name]: e.target.value });
+  };
+
+  const handleSave = () => {
+    setIsEditing(false);
+  };
+
+  return (
+    <div className="flex flex-col gap-8">
+      <div className="w-[760px] h-[9.5rem] border border-gray-300 rounded-xl flex flex-col p-5 shadow-md font-sans">
+        <h2 className="text-lg font-bold mb-2">Saved Address</h2>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <input
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              className="w-4 h-4 text-purple-600 cursor-pointer accent-purple-600"
+            />
+            <div>
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="name"
+                  value={contact.name}
+                  onChange={handleChange}
+                  className="text-lg font-bold border-b border-gray-400 focus:outline-none"
+                />
+              ) : (
+                <h3 className="m-0 text-lg font-bold">{contact.name}</h3>
+              )}
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="address"
+                  value={contact.address}
+                  onChange={handleChange}
+                  className="text-sm text-gray-600 border-b border-gray-400 focus:outline-none"
+                />
+              ) : (
+                <p className="m-0 text-sm text-gray-600">{contact.address}</p>
+              )}
+              {isEditing ? (
+                <input
+                  type="text"
+                  name="phone"
+                  value={contact.phone}
+                  onChange={handleChange}
+                  className="text-sm font-bold border-b border-gray-400 focus:outline-none"
+                />
+              ) : (
+                <p className="m-0 font-bold">{contact.phone}</p>
+              )}
+              {isEditing && (
+                <button onClick={handleSave} className="mt-2 px-3 py-1 bg-blue-500 text-white rounded-md cursor-pointer">
+                  Save
+                </button>
+              )}
+            </div>
+          </div>
+          {!isEditing && <FaPencilAlt className="text-green-500 cursor-pointer" onClick={handleEdit} />}
+        </div>
+      </div>
+      <div className="w-[760px] h-[734px] border border-gray-300 rounded-xl p-5 shadow-md">
+        <h2 className="text-lg font-bold">Customize Your Requirements</h2>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <input className="border p-2 rounded" type="text" value="02" readOnly />
+          <input className="border p-2 rounded" type="text" value="02" readOnly />
+        </div>
+        <h3 className="mt-4 text-md font-semibold">Service</h3>
+        <input className="border p-2 rounded w-full" type="text" value="Cleaning" readOnly />
+        <h2 className="text-lg font-bold mt-6">Booking Date & Time</h2>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <input className="border p-2 rounded" type="text" value="17 April 2025" readOnly />
+          <input className="border p-2 rounded" type="text" value="09:00am" readOnly />
+        </div>
+        <h2 className="text-lg font-bold mt-6">Select Frequency</h2>
+        <h3 className="mt-4 text-md font-semibold">Recurring</h3>
+        <input className="border p-2 rounded w-full" type="text" value="Onetime" readOnly />
+        <h3 className="mt-4 text-md font-semibold">Note</h3>
+        <textarea className="border p-2 rounded w-full" readOnly>
+          There are many variations of passages of Lorem Ipsum available, but the majority
+        </textarea>
+      </div>
+    </div>
+  );
+};
+
+export default ContactCard;
