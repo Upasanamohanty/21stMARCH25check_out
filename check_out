@@ -1,0 +1,98 @@
+"use client";
+import React, { useState } from 'react';
+import { FaPencilAlt } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
+
+const BookingPage: React.FC = () => {
+    const [bedrooms, setBedrooms] = useState<string>('02');
+    const [bathrooms, setBathrooms] = useState<string>('02');
+    const [service, setService] = useState<string>('Cleaning');
+    const [date, setDate] = useState<string>('17 April 2025');
+    const [time, setTime] = useState<string>('09:00am');
+    const [frequency, setFrequency] = useState<string>('Onetime');
+    const [paymentMethod, setPaymentMethod] = useState<string>('Cash on Delivery');
+    const [address, setAddress] = useState<string>('4140 Parker Rd. Allentown, New Mexico 31134');
+    const [name, setName] = useState<string>('Dainne Russell' || 'Enter Name');
+    const [phone, setPhone] = useState<string>('+1 (555) 123-4567');
+
+    const handlePayNow = () => {
+        alert(`Payment Successful!\nBooking Details:\n- Bedrooms: ${bedrooms}\n- Bathrooms: ${bathrooms}\n- Service: ${service}\n- Date: ${date}\n- Time: ${time}\n- Frequency: ${frequency}\n- Payment Method: ${paymentMethod}\n- Address: ${address}`);
+    };
+
+    return (
+        <div className="w-[83vw] h-[59.625rem] bg-white border border-[#E6E6E6] p-6">
+            <div className="flex gap-6">
+                <div className="w-1/2">
+                    <h2 className="font-bold text-xl mb-2">Saved Address</h2>
+                    <div className="border p-4 w-full mt-2 rounded-lg flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                            <div className="w-[18.5px] h-[18.5px] bg-[#AF5AD0] border border-white rounded flex items-center justify-center">
+                                <img src="/path-to-purple-tick.png" alt="Purple Tick" className="w-4 h-4" />
+                            </div>
+                            <div>
+                                <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="font-bold w-full" placeholder="Enter Name" />
+                                <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} className="w-full mt-2" />
+                                <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="w-full mt-2" />
+                            </div>
+                        </div>
+                        <FaPencilAlt className="text-green-500 cursor-pointer" />
+                    </div>
+
+                    <h2 className="font-bold text-xl mt-4">Customize Your Requirements</h2>
+                    <div className="flex gap-2">
+                        <input type="text" value={bedrooms} onChange={(e) => setBedrooms(e.target.value)} className="border p-2 w-1/2 mt-2" />
+                        <input type="text" value={bathrooms} onChange={(e) => setBathrooms(e.target.value)} className="border p-2 w-1/2 mt-2" />
+                    </div>
+                    <input type="text" value={service} onChange={(e) => setService(e.target.value)} className="border p-2 w-full mt-2" />
+
+                    <h2 className="font-bold text-xl mt-4">Booking Date & Time</h2>
+                    <div className="flex gap-2">
+                        <input type="text" value={date} onChange={(e) => setDate(e.target.value)} className="border p-2 w-1/2 mt-2" />
+                        <input type="text" value={time} onChange={(e) => setTime(e.target.value)} className="border p-2 w-1/2 mt-2" />
+                    </div>
+
+                    <h2 className="font-bold text-xl mt-4">Select Frequency</h2>
+                    <input type="text" value={frequency} onChange={(e) => setFrequency(e.target.value)} className="border p-2 w-full mt-2" />
+                </div>
+
+                <div className="w-1/2">
+                    <div className="border border-[#E6E6E6] p-4">
+                        <h2 className="font-bold text-xl">Order Summary</h2>
+                        <div className="flex justify-between mt-2">
+                            <span>Floor Care Services</span>
+                            <span>$70.00</span>
+                        </div>
+                        <div className="flex justify-between mt-2">
+                            <span>Window Cleaning</span>
+                            <span>$14.00</span>
+                        </div>
+                        <div className="flex justify-between mt-2">
+                            <span>Parking Lot Cleaning</span>
+                            <span>$14.00</span>
+                        </div>
+                        <hr className="my-2" />
+                        <div className="flex justify-between">
+                            <span>Subtotal:</span>
+                            <span>$84.00</span>
+                        </div>
+                        <div className="flex justify-between font-bold">
+                            <span>Total:</span>
+                            <span>$84.00</span>
+                        </div>
+
+                        <h2 className="font-bold text-xl mt-4">Payment Method</h2>
+                        <div className="flex flex-col gap-2 mt-2">
+                            <label><input type="radio" name="payment" value="Cash on Delivery" checked={paymentMethod === 'Cash on Delivery'} onChange={(e) => setPaymentMethod(e.target.value)} /> Cash on Delivery</label>
+                            <label><input type="radio" name="payment" value="Paypal" checked={paymentMethod === 'Paypal'} onChange={(e) => setPaymentMethod(e.target.value)} /> Paypal</label>
+                            <label><input type="radio" name="payment" value="Amazon Pay" checked={paymentMethod === 'Amazon Pay'} onChange={(e) => setPaymentMethod(e.target.value)} /> Amazon Pay</label>
+                        </div>
+
+                        <button onClick={handlePayNow} className="bg-[#1DC5C4] text-white w-full py-2 mt-4 rounded">Pay Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default BookingPage;
